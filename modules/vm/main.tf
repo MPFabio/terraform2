@@ -8,14 +8,14 @@ variable "vm_image" {}
 
 resource "azurerm_linux_virtual_machine" "example" {
   count                = var.vm_count
-  name                 = "my-vm-${count.index}"
+  name                 = "fabio-vm-${count.index}"
   location             = var.location
   resource_group_name  = var.resource_group_name
   size                 = var.vm_size
   admin_username       = "adminuser"
   network_interface_ids = [azurerm_network_interface.example[count.index].id]
   admin_ssh_key {
-    username       = "adminuser"
+    username       = "fabio"
     public_key     = file("~/.ssh/id_rsa.pub")
     disable_password_authentication = true
   }
@@ -35,12 +35,12 @@ resource "azurerm_linux_virtual_machine" "example" {
 
 resource "azurerm_network_interface" "example" {
   count               = var.vm_count
-  name                = "my-nic-${count.index}"
+  name                = "fabio-nic-${count.index}"
   location            = var.location
   resource_group_name = var.resource_group_name
 
   ip_configuration {
-    name                          = "my-nic-ipconfig"
+    name                          = "fabio-nic-ipconfig"
     subnet_id                     = var.vnet_subnet_id
     private_ip_address_allocation = "Dynamic"
   }
