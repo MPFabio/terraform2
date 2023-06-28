@@ -6,6 +6,7 @@ variable "vm_count" {}
 variable "vm_size" {}
 variable "vm_image" {}
 
+
 resource "tls_private_key" "kubeadm" {
     algorithm = "RSA"
     rsa_bits = 4096
@@ -21,7 +22,7 @@ resource "azurerm_linux_virtual_machine" "example" {
   network_interface_ids = [azurerm_network_interface.example[count.index].id]
   admin_ssh_key {
     username       = "fabio"
-    public_key     = tls_private_key.example.public_key_openssh 
+    public_key     = file("~/.ssh/id_rsa.pub") 
     disable_password_authentication = true
   }
   os_disk {
