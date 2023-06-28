@@ -23,7 +23,6 @@ resource "azurerm_linux_virtual_machine" "example" {
   admin_ssh_key {
     username       = "fabio"
     public_key     = file("~/.ssh/id_rsa.pub") 
-    disable_password_authentication = true
   }
   os_disk {
     caching              = "ReadWrite"
